@@ -1,4 +1,7 @@
 #![allow(unused)]
+use regex::Regex;
+use clap::Arg;
+
 fn grep_lite() {
     let search_term = "picture";
     let mut line_number = 1;
@@ -90,6 +93,29 @@ fn grep_lite_with_vectors(){
             let line_num = j+1;
             println!("{} {}",line_num,line);
         }
+    }
+}
+
+fn grep_lite_with_regex(){
+    let haystack = "\
+    Every face, every shop,
+    bedroom window, public-house, and 
+    dark square is a picture
+    feversihly turned--in search of what?
+    It is the same with books.
+    What to we seek
+    through millions of pages.";
+    
+    let re = Regex::new("same").unwrap();
+    // let args = Arg::new(id)
+
+    for (i,line) in haystack.lines().enumerate(){
+        let contains = re.find(line);
+        match contains {
+            Some(_) => println!("Found in line {} : {}", i+1,line),
+            None => ()
+        }
+
     }
 }
 fn main() {
