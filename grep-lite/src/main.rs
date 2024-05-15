@@ -97,26 +97,21 @@ fn grep_lite_with_vectors(){
 }
 
 fn grep_lite_with_regex(){
-    let haystack = "\
-    Every face, every shop,
-    bedroom window, public-house, and 
-    dark square is a picture
-    feversihly turned--in search of what?
-    It is the same with books.
-    What to we seek
-    through millions of pages.";
-    
-    let re = Regex::new("same").unwrap();
-    // let args = Arg::new(id)
 
-    for (i,line) in haystack.lines().enumerate(){
-        let contains = re.find(line);
-        match contains {
-            Some(_) => println!("Found in line {} : {}", i+1,line),
-            None => ()
-        }
 
-    }
+//    let pattern = args.value_of("pattern").unwrap();
+//    let re = Regex::new(pattern).unwrap();
+ let args = Arg::new("id");
+   let quote = "Every face, every shop, bedroom window, public-house, and
+ dark square is a picture feverishly turned--in search of whatx?
+ It is the same with books. What do we seek through millions of pages?";
+ 
+//    for line in quote.lines() {
+//      match re.find(line) {
+//          Some(_) => println!("{}", line),
+//          None => (),
+//      }
+//    }
 }
 fn main() {
     println!("Grep-Lite");
