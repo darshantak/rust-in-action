@@ -113,4 +113,6 @@ fn main() {
     if let Err(err) = get_cortex_endpoints(){
         println!("{:?}",err)
     }
+
+    
 }
