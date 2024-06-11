@@ -1,2 +1,2 @@
 pub mod async_exp;
-pub mod futures;
+pub mod futures_exp;

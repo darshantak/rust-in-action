@@ -4,7 +4,7 @@ use tokio::time::Instant;
 async fn fetch_url(url: &str) -> Result<String, Error> {
     let response = reqwest::get(url).await?;
     let body = response.text().await?;
-    Ok("".to_string())
+    Ok(body)
 }
 
 pub async fn fetch_concurrently() -> Result<(), Error> {
@@ -16,7 +16,7 @@ pub async fn fetch_concurrently() -> Result<(), Error> {
 
     for result in results{
         match result{
-            Ok(response) => println!("Fetched : {}", response),
+            Ok(body) => println!("Fetched : {}", &body[..10]),
             Err(err) => println!("Error occured: {}", err)
         }
     }
