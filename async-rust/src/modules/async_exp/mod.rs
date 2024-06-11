@@ -1,3 +1,5 @@
+use futures::executor::block_on;
+
 pub fn intro(){
     println!("Async Programming");
 

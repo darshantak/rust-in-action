@@ -4,7 +4,8 @@ use futures::executor::block_on;
 fn main() {
     println!("Hello, world!");
     async_exp::intro();
-    let song = async_exp::learn_song();
+    let song = block_on(async_exp::learn_song());
     block_on(async_exp::sing_song(song));
-    async_exp::dance();
+    block_on(async_exp::dance());
 }
+
