@@ -1,6 +1,7 @@
 use tokio::fs::{File, OpenOptions};
 use tokio::io::{self, AsyncReadExt, AsyncWriteExt};
 use std::env;
+use tokio::time::Instant;
 //tokio::io::Result<T> is a type alias for the I/O ops specifically. It assumes that the error type is io::Error and it takes care of this by itself only.
 pub async fn read_file(file_path: &str) -> io::Result<String> {
     println!("Read file function is called with file {}", file_path);
@@ -37,12 +38,13 @@ pub async fn write_file(file_path: &str, contents: &str) -> io::Result<()>{
 }
 
 pub async fn file_example() -> io::Result<()> {
+    let start_time = Instant::now();
     let file_path = "example.txt";
     let contents = "Hello this is an example of asynchronous programming.";
     println!("Current working directory: {:?}", env::current_dir().unwrap());
 
     let read_contents = read_file(&file_path).await?;
     write_file("new_example.txt", contents).await?;
-
+    println!("Total time elapsed is : {:?}", start_time.elapsed());
     Ok(())
 }
