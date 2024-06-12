@@ -41,10 +41,10 @@ pub async fn file_example() -> io::Result<()> {
     let start_time = Instant::now();
     let file_path = "example.txt";
     let contents = "Hello this is an example of asynchronous programming.";
-    println!("Current working directory: {:?}", env::current_dir().unwrap());
-
+    // println!("Current working directory: {:?}", env::current_dir().unwrap());
     let read_contents = read_file(&file_path).await?;
     write_file("new_example.txt", contents).await?;
+    
     println!("Total time elapsed is : {:?}", start_time.elapsed());
     Ok(())
 }
