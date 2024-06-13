@@ -22,12 +22,12 @@ fn App() -> impl IntoView {
         <button
             on:click=move |_| {
                 // on stable, this is set_count.set(3);
-                set_count(3);
+                set_count.update(|n| *n+=1);
             }
         >
             "Click me: "
             // on stable, this is move || count.get();
-            {move || count()}
+            {move || count.get()}
         </button>
     }
 }
