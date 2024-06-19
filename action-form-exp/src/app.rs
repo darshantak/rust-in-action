@@ -28,48 +28,34 @@ pub fn App() -> impl IntoView {
 }
 
 #[server]
-async fn do_something(
-    should_error: Option<String>,
-) -> Result<String, ServerFnError> {
-    if should_error.is_none() {
-        Ok(String::from("Successful submit"))
-    } else {
-        Err(ServerFnError::ServerError(String::from(
-            "You got an error!",
-        )))
+async fn something(is_error: Option<String>) -> Result<String, ServerFnError>{
+    if is_error.is_none(){
+        Ok(String::from("Successfull Submit"))
+    } else{
+        Err(ServerFnError::ServerError(String::from("Server error")))
     }
 }
 
 /// Renders the home page of your application.
 #[component]
 fn HomePage() -> impl IntoView {
-    let do_something_action = Action::<DoSomething, _>::server();
-    let value = Signal::derive(move || {
-        do_something_action
-            .value()
-            .get()
-            .unwrap_or_else(|| Ok(String::new()))
+    //creating a signal so that client can trigger this
+    let something_action = Action::<Something, _>::server();
+    //deriving this signal will get us the value of the signal
+    let value_from_action = Signal::derive(move || {
+        something_action.value().get().unwrap_or_else(|| Ok(String::from("This is from the variable value_from_action")))
     });
-
-    Effect::new_isomorphic(move |_| {
-        logging::log!("Got value = {:?}", value.get());
-    });
+    //now for logging at the server level we can use side effects which we can define by new_isomorphic
+    Effect::new_isomorphic(move |_|  logging::log!("Got value : {:?}",value_from_action.get()));
 
     view! {
-        <h1>"Test the action form!"</h1>
-        <ErrorBoundary fallback=move |error| format!("{:#?}", error
-                                                     .get()
-                                                     .into_iter()
-                                                     .next()
-                                                     .unwrap()
-                                                     .1.into_inner()
-                                                     .to_string())
-            >
-            {value}
-            <ActionForm action=do_something_action class="form">
-                <label>Should error: <input type="checkbox" name="should_error"/></label>
-                <button type="submit">Submit</button>
-            </ActionForm>
+        <h1>"Testing the action form"</h1>
+        <ErrorBoundary fallback=move |error| format!("{:?}",error.get().into_iter().next().unwrap().1.to_string())>
+        {value_from_action}
+        <ActionForm action=something_action class="form">
+        <label>"Is Error"<input type="checkbox" name="is_error" /></label>
+        <button type="submit">"Submit"</button>
+        </ActionForm>
         </ErrorBoundary>
     }
 }
