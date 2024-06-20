@@ -43,6 +43,7 @@ fn HomePage() -> impl IntoView {
     let something_action = Action::<Something, _>::server();
     //deriving this signal will get us the value of the signal
     let value_from_action = Signal::derive(move || {
+        //unwrap_or_else basically takes a closure which will give us a fallback value.
         something_action.value().get().unwrap_or_else(|| Ok(String::from("This is from the variable value_from_action")))
     });
     //now for logging at the server level we can use side effects which we can define by new_isomorphic
