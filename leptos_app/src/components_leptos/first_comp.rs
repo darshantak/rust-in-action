@@ -12,3 +12,10 @@ pub fn Counter() -> impl IntoView{
         
     }
 }
+
+#[component]
+pub fn About() -> impl IntoView{
+    view! {
+        <h1> "This is the about page"</h1>
+    }
+}
