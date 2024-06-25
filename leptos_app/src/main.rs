@@ -10,8 +10,8 @@ fn main() {
         view! {
             <Router>
             <Routes>
-            <Route path="/" view=About/>
-            <Route path="/counter" view=Counter/>
+            <Route path="/" view=Counter/>
+            <Route path="/about" view=About/>
             </Routes>
         </Router>}
     });
