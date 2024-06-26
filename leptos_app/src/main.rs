@@ -1,6 +1,7 @@
 use console_log::*;
 use leptos::*;
 use leptos_app::components_leptos::first_comp::*;
+use leptos_app::components_leptos::vector_comp::*;
 use leptos_router::*;
 fn main() {
     // mount_to_body(|| view! {<p>"Hello World"</p>})
@@ -12,6 +13,7 @@ fn main() {
             <Routes>
             <Route path="/" view=Counter/>
             <Route path="/about" view=About/>
+            <Route path="/counters" view=Counters/>
             </Routes>
         </Router>}
     });

@@ -1,6 +1,4 @@
 use leptos::*;
-use svg::view;
-use web_sys::console::count;
 
 #[component]
 pub fn Counter() -> impl IntoView {
